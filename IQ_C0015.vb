@@ -1,4 +1,13 @@
 ﻿Imports CrystalDecisions.CrystalReports.Engine
+
+Imports CrystalDecisions.Shared
+Imports CrystalDecisions.Web
+Imports CrystalDecisions.ReportSource
+Imports CrystalDecisions.CrystalReports
+
+Imports System.IO
+Imports System.Net
+Imports System.Net.Mail
 Public Class IQ_C0015
     Dim Permisos As Integer = 0
     Dim oficinas_select(100) As String
@@ -10,6 +19,7 @@ Public Class IQ_C0015
     Private DictTT As New ColeccionTT
     Private DictEstados As New ColeccionEstados
     Dim alcance(3) As String
+    Dim cod_elemAux As String
     Dim listaTT As New System.Windows.Forms.ListBox
     Dim listaEstados As New System.Windows.Forms.ListBox
 
@@ -122,6 +132,7 @@ Public Class IQ_C0015
                                 alcance(1) = ""
                                 alcance(2) = cod_elem
                         End Select
+                        cod_elemAux = cod_elem
                     End If
                 End If
                 Dim indice_nodo As Integer
@@ -820,5 +831,62 @@ Public Class IQ_C0015
                 MessageBox.Show(Mensaje_Excepcion, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
                 Exit Sub
             End Try
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim rpt As New ReportDocument
+        ' rpt.SetDataSource()
+        'SetParameterValue
+
+        rpt.Load(Disco_Appl & ":\I-Q\IQ_Rpt\Prueba.rpt")
+        rpt.SetParameterValue("R_ID", "" + alcance(2))
+        rpt.SetParameterValue("R_DateIni", Format(Me.DtFechaDesde.Value, "Short Date"))
+        rpt.SetParameterValue("R_DateEnd", Format(Me.DtFechaHasta.Value, "Short Date"))
+        rpt.SetParameterValue("R_Ticket", CodigoTT(Me.CmbTipoTick.Text))
+        rpt.SetDatabaseLogon("sa", "as")
+        'CrystalReportViewer1.ReportSource = rptFormat(Me.DtFechaDesde.Value, "yyyy,MM,dd") + ") "
+        'selform = selform & " And {IQ_Ausencias.IQAusencias_Fecha} <= Date (" + Format(Me.DtFechaHasta.Value, "yyyy,MM,dd")
+        Me.CrvReporte.ReportSource = rpt
+        Me.CrvReporte.DisplayToolbar = True
+        Me.CrvReporte.ShowCloseButton = False
+        'Me.CrvReporte.Zoom(1)
+        Me.CrvReporte.ShowFirstPage()
+        Me.CrvReporte.BringToFront()
+        Me.CrvReporte.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+        Me.CrvReporte.Visible = True
+    End Sub
+
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
+        MsgBox("0:" & alcance(0) & " 1:" & alcance(1) & " 2:" & alcance(2) & " cod:" & cod_elemAux)
+        Dim cryRpt As New ReportDocument
+        cryRpt.Load(Disco_Appl & ":\I-Q\IQ_Rpt\Prueba.rpt")
+        cryRpt.SetParameterValue("R_ID", "203000001000006")
+        cryRpt.SetParameterValue("R_DateIni", "01/06/2016")
+        cryRpt.SetParameterValue("R_DateEnd", "30/06/2017")
+        cryRpt.SetParameterValue("R_Ticket", "SAC")
+        cryRpt.SetParameterValue("MiParametro", "Daniel Choque Canaviri")
+        cryRpt.SetDatabaseLogon("sa", "as")
+        CrvReporte.ReportSource = cryRpt
+
+        CrvReporte.Refresh()
+
+        Try
+            Dim CrExportOptions As ExportOptions
+            Dim CrDiskFileDestinationOptions As New  _
+            DiskFileDestinationOptions()
+            Dim CrFormatTypeOptions As New PdfRtfWordFormatOptions()
+            CrDiskFileDestinationOptions.DiskFileName = _
+                                        "C:\IQ\crystalExport.pdf"
+            CrExportOptions = cryRpt.ExportOptions
+            With CrExportOptions
+                .ExportDestinationType = ExportDestinationType.DiskFile
+                .ExportFormatType = ExportFormatType.PortableDocFormat
+                .DestinationOptions = CrDiskFileDestinationOptions
+                .FormatOptions = CrFormatTypeOptions
+            End With
+            cryRpt.Export()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 End Class

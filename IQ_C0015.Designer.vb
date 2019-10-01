@@ -25,6 +25,8 @@ Partial Class IQ_C0015
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IQ_C0015))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.CmdExit = New System.Windows.Forms.Button()
         Me.CmdClean = New System.Windows.Forms.Button()
         Me.CmdReport = New System.Windows.Forms.Button()
@@ -117,6 +119,8 @@ Partial Class IQ_C0015
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.Label11)
+        Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.CmdExit)
         Me.Panel1.Controls.Add(Me.CmdClean)
         Me.Panel1.Controls.Add(Me.CmdReport)
@@ -125,6 +129,24 @@ Partial Class IQ_C0015
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1071, 40)
         Me.Panel1.TabIndex = 1
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(562, 4)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(210, 13)
+        Me.Label11.TabIndex = 11
+        Me.Label11.Text = "REPORTE DE CONSULTAS ATENDIDAS"
+        '
+        'Button1
+        '
+        Me.Button1.Image = Global.IQ_Core.My.Resources.Resources.Reporte
+        Me.Button1.Location = New System.Drawing.Point(515, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(40, 40)
+        Me.Button1.TabIndex = 10
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'CmdExit
         '
@@ -645,6 +667,7 @@ Partial Class IQ_C0015
         Me.Rb24.Size = New System.Drawing.Size(254, 16)
         Me.Rb24.TabIndex = 580
         Me.Rb24.TabStop = True
+        Me.Rb24.Text = "Informe de Consultas Atendidas"
         Me.Rb24.UseVisualStyleBackColor = True
         '
         'Rb23
@@ -1105,6 +1128,7 @@ Partial Class IQ_C0015
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Emisión de Reportes"
         Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.Panel_Estado0, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Panel_Estado1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Panel_Estado2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1196,4 +1220,6 @@ Partial Class IQ_C0015
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents RbAnual As System.Windows.Forms.RadioButton
     Friend WithEvents ChkInterno As System.Windows.Forms.CheckBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Label11 As System.Windows.Forms.Label
 End Class
