@@ -25,7 +25,9 @@ Partial Class IQ_C0015
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IQ_C0015))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtName = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.CmdExit = New System.Windows.Forms.Button()
         Me.CmdClean = New System.Windows.Forms.Button()
@@ -109,6 +111,14 @@ Partial Class IQ_C0015
         Me.Label10 = New System.Windows.Forms.Label()
         Me.RbAnual = New System.Windows.Forms.RadioButton()
         Me.ChkInterno = New System.Windows.Forms.CheckBox()
+        Me.DtHoraHasta2 = New System.Windows.Forms.DateTimePicker()
+        Me.DtHoraDesde2 = New System.Windows.Forms.DateTimePicker()
+        Me.DtHoraHasta4 = New System.Windows.Forms.DateTimePicker()
+        Me.DtHoraDesde4 = New System.Windows.Forms.DateTimePicker()
+        Me.DtHoraHasta3 = New System.Windows.Forms.DateTimePicker()
+        Me.DtHoraDesde3 = New System.Windows.Forms.DateTimePicker()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.btnGenerar = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.Panel_Estado0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Panel_Estado1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,7 +129,9 @@ Partial Class IQ_C0015
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.Label11)
+        Me.Panel1.Controls.Add(Me.Label13)
+        Me.Panel1.Controls.Add(Me.txtName)
+        Me.Panel1.Controls.Add(Me.Label12)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.CmdExit)
         Me.Panel1.Controls.Add(Me.CmdClean)
@@ -130,19 +142,35 @@ Partial Class IQ_C0015
         Me.Panel1.Size = New System.Drawing.Size(1071, 40)
         Me.Panel1.TabIndex = 1
         '
-        'Label11
+        'Label13
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(562, 4)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(210, 13)
-        Me.Label11.TabIndex = 11
-        Me.Label11.Text = "REPORTE DE CONSULTAS ATENDIDAS"
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(476, 22)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(202, 13)
+        Me.Label13.TabIndex = 14
+        Me.Label13.Text = "Responsable SAC/Supervisor de medios "
+        '
+        'txtName
+        '
+        Me.txtName.Location = New System.Drawing.Point(684, 16)
+        Me.txtName.Name = "txtName"
+        Me.txtName.Size = New System.Drawing.Size(125, 20)
+        Me.txtName.TabIndex = 13
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(476, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(210, 13)
+        Me.Label12.TabIndex = 12
+        Me.Label12.Text = "REPORTE DE CONSULTAS ATENDIDAS"
         '
         'Button1
         '
         Me.Button1.Image = Global.IQ_Core.My.Resources.Resources.Reporte
-        Me.Button1.Location = New System.Drawing.Point(515, 0)
+        Me.Button1.Location = New System.Drawing.Point(430, 0)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(40, 40)
         Me.Button1.TabIndex = 10
@@ -183,7 +211,7 @@ Partial Class IQ_C0015
         '
         Me.LblAplicacion.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.LblAplicacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.LblAplicacion.Location = New System.Drawing.Point(80, 284)
+        Me.LblAplicacion.Location = New System.Drawing.Point(80, 246)
         Me.LblAplicacion.Name = "LblAplicacion"
         Me.LblAplicacion.Size = New System.Drawing.Size(311, 23)
         Me.LblAplicacion.TabIndex = 539
@@ -193,9 +221,9 @@ Partial Class IQ_C0015
         '
         Me.TrvOficinas.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TrvOficinas.Location = New System.Drawing.Point(80, 311)
+        Me.TrvOficinas.Location = New System.Drawing.Point(80, 273)
         Me.TrvOficinas.Name = "TrvOficinas"
-        Me.TrvOficinas.Size = New System.Drawing.Size(311, 104)
+        Me.TrvOficinas.Size = New System.Drawing.Size(311, 154)
         Me.TrvOficinas.TabIndex = 0
         '
         'Label9
@@ -203,7 +231,7 @@ Partial Class IQ_C0015
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.ForeColor = System.Drawing.Color.Blue
         Me.Label9.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label9.Location = New System.Drawing.Point(12, 285)
+        Me.Label9.Location = New System.Drawing.Point(12, 247)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(72, 23)
         Me.Label9.TabIndex = 538
@@ -213,7 +241,7 @@ Partial Class IQ_C0015
         '
         Me.CmbTipoTick.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CmbTipoTick.ForeColor = System.Drawing.Color.Red
-        Me.CmbTipoTick.Location = New System.Drawing.Point(466, 335)
+        Me.CmbTipoTick.Location = New System.Drawing.Point(466, 388)
         Me.CmbTipoTick.Name = "CmbTipoTick"
         Me.CmbTipoTick.Size = New System.Drawing.Size(336, 21)
         Me.CmbTipoTick.TabIndex = 5
@@ -223,7 +251,7 @@ Partial Class IQ_C0015
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Blue
         Me.Label5.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label5.Location = New System.Drawing.Point(403, 335)
+        Me.Label5.Location = New System.Drawing.Point(403, 388)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(57, 23)
         Me.Label5.TabIndex = 541
@@ -233,7 +261,7 @@ Partial Class IQ_C0015
         '
         Me.DtFechaDesde.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
         Me.DtFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtFechaDesde.Location = New System.Drawing.Point(466, 288)
+        Me.DtFechaDesde.Location = New System.Drawing.Point(466, 250)
         Me.DtFechaDesde.Name = "DtFechaDesde"
         Me.DtFechaDesde.Size = New System.Drawing.Size(112, 20)
         Me.DtFechaDesde.TabIndex = 1
@@ -242,7 +270,7 @@ Partial Class IQ_C0015
         '
         Me.DtFechaHasta.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
         Me.DtFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DtFechaHasta.Location = New System.Drawing.Point(664, 288)
+        Me.DtFechaHasta.Location = New System.Drawing.Point(664, 250)
         Me.DtFechaHasta.Name = "DtFechaHasta"
         Me.DtFechaHasta.Size = New System.Drawing.Size(112, 20)
         Me.DtFechaHasta.TabIndex = 2
@@ -252,7 +280,7 @@ Partial Class IQ_C0015
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Blue
         Me.Label1.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label1.Location = New System.Drawing.Point(403, 294)
+        Me.Label1.Location = New System.Drawing.Point(403, 256)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(57, 23)
         Me.Label1.TabIndex = 547
@@ -263,7 +291,7 @@ Partial Class IQ_C0015
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Blue
         Me.Label2.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label2.Location = New System.Drawing.Point(607, 294)
+        Me.Label2.Location = New System.Drawing.Point(607, 256)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 23)
         Me.Label2.TabIndex = 548
@@ -279,12 +307,12 @@ Partial Class IQ_C0015
         Me.CrvReporte.Cursor = System.Windows.Forms.Cursors.Default
         Me.CrvReporte.Location = New System.Drawing.Point(15, 56)
         Me.CrvReporte.Name = "CrvReporte"
-        Me.CrvReporte.Size = New System.Drawing.Size(1041, 359)
+        Me.CrvReporte.Size = New System.Drawing.Size(1041, 41)
         Me.CrvReporte.TabIndex = 549
         '
         'Barra_Estado
         '
-        Me.Barra_Estado.Location = New System.Drawing.Point(0, 421)
+        Me.Barra_Estado.Location = New System.Drawing.Point(0, 471)
         Me.Barra_Estado.Name = "Barra_Estado"
         Me.Barra_Estado.Panels.AddRange(New System.Windows.Forms.StatusBarPanel() {Me.Panel_Estado0, Me.Panel_Estado1, Me.Panel_Estado2, Me.Panel_Estado3})
         Me.Barra_Estado.ShowPanels = True
@@ -376,7 +404,7 @@ Partial Class IQ_C0015
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Location = New System.Drawing.Point(12, 46)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1047, 235)
+        Me.Panel2.Size = New System.Drawing.Size(1047, 195)
         Me.Panel2.TabIndex = 555
         '
         'Rb48
@@ -667,7 +695,6 @@ Partial Class IQ_C0015
         Me.Rb24.Size = New System.Drawing.Size(254, 16)
         Me.Rb24.TabIndex = 580
         Me.Rb24.TabStop = True
-        Me.Rb24.Text = "Informe de Consultas Atendidas"
         Me.Rb24.UseVisualStyleBackColor = True
         '
         'Rb23
@@ -989,7 +1016,7 @@ Partial Class IQ_C0015
         Me.DtHoraHasta.CustomFormat = "HH:mm:ss"
         Me.DtHoraHasta.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
         Me.DtHoraHasta.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.DtHoraHasta.Location = New System.Drawing.Point(664, 311)
+        Me.DtHoraHasta.Location = New System.Drawing.Point(664, 273)
         Me.DtHoraHasta.Name = "DtHoraHasta"
         Me.DtHoraHasta.Size = New System.Drawing.Size(112, 20)
         Me.DtHoraHasta.TabIndex = 4
@@ -999,7 +1026,7 @@ Partial Class IQ_C0015
         Me.DtHoraDesde.CustomFormat = "HH:mm:ss"
         Me.DtHoraDesde.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
         Me.DtHoraDesde.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.DtHoraDesde.Location = New System.Drawing.Point(466, 311)
+        Me.DtHoraDesde.Location = New System.Drawing.Point(466, 273)
         Me.DtHoraDesde.Name = "DtHoraDesde"
         Me.DtHoraDesde.Size = New System.Drawing.Size(112, 20)
         Me.DtHoraDesde.TabIndex = 3
@@ -1008,7 +1035,7 @@ Partial Class IQ_C0015
         '
         Me.CmbEstados.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CmbEstados.ForeColor = System.Drawing.Color.Red
-        Me.CmbEstados.Location = New System.Drawing.Point(466, 362)
+        Me.CmbEstados.Location = New System.Drawing.Point(466, 415)
         Me.CmbEstados.Name = "CmbEstados"
         Me.CmbEstados.Size = New System.Drawing.Size(336, 21)
         Me.CmbEstados.TabIndex = 6
@@ -1018,7 +1045,7 @@ Partial Class IQ_C0015
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Blue
         Me.Label8.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label8.Location = New System.Drawing.Point(403, 362)
+        Me.Label8.Location = New System.Drawing.Point(403, 415)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 23)
         Me.Label8.TabIndex = 557
@@ -1028,7 +1055,7 @@ Partial Class IQ_C0015
         '
         Me.RbDiario.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RbDiario.ForeColor = System.Drawing.Color.Blue
-        Me.RbDiario.Location = New System.Drawing.Point(466, 389)
+        Me.RbDiario.Location = New System.Drawing.Point(466, 442)
         Me.RbDiario.Name = "RbDiario"
         Me.RbDiario.Size = New System.Drawing.Size(104, 26)
         Me.RbDiario.TabIndex = 7
@@ -1040,7 +1067,7 @@ Partial Class IQ_C0015
         '
         Me.RbSemanal.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RbSemanal.ForeColor = System.Drawing.Color.Blue
-        Me.RbSemanal.Location = New System.Drawing.Point(576, 389)
+        Me.RbSemanal.Location = New System.Drawing.Point(576, 442)
         Me.RbSemanal.Name = "RbSemanal"
         Me.RbSemanal.Size = New System.Drawing.Size(104, 26)
         Me.RbSemanal.TabIndex = 8
@@ -1052,7 +1079,7 @@ Partial Class IQ_C0015
         '
         Me.RbMensual.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RbMensual.ForeColor = System.Drawing.Color.Blue
-        Me.RbMensual.Location = New System.Drawing.Point(698, 389)
+        Me.RbMensual.Location = New System.Drawing.Point(698, 442)
         Me.RbMensual.Name = "RbMensual"
         Me.RbMensual.Size = New System.Drawing.Size(104, 26)
         Me.RbMensual.TabIndex = 9
@@ -1065,7 +1092,7 @@ Partial Class IQ_C0015
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.Color.Blue
         Me.Label10.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Label10.Location = New System.Drawing.Point(403, 392)
+        Me.Label10.Location = New System.Drawing.Point(403, 445)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(57, 23)
         Me.Label10.TabIndex = 561
@@ -1075,7 +1102,7 @@ Partial Class IQ_C0015
         '
         Me.RbAnual.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RbAnual.ForeColor = System.Drawing.Color.Blue
-        Me.RbAnual.Location = New System.Drawing.Point(817, 389)
+        Me.RbAnual.Location = New System.Drawing.Point(817, 442)
         Me.RbAnual.Name = "RbAnual"
         Me.RbAnual.Size = New System.Drawing.Size(104, 26)
         Me.RbAnual.TabIndex = 10
@@ -1088,18 +1115,105 @@ Partial Class IQ_C0015
         Me.ChkInterno.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ChkInterno.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
         Me.ChkInterno.ForeColor = System.Drawing.Color.Blue
-        Me.ChkInterno.Location = New System.Drawing.Point(918, 392)
+        Me.ChkInterno.Location = New System.Drawing.Point(918, 445)
         Me.ChkInterno.Name = "ChkInterno"
         Me.ChkInterno.Size = New System.Drawing.Size(141, 24)
         Me.ChkInterno.TabIndex = 11
         Me.ChkInterno.Text = "Control Interno"
         Me.ChkInterno.UseVisualStyleBackColor = True
         '
+        'DtHoraHasta2
+        '
+        Me.DtHoraHasta2.CustomFormat = "HH:mm:ss"
+        Me.DtHoraHasta2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.DtHoraHasta2.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.DtHoraHasta2.Location = New System.Drawing.Point(664, 309)
+        Me.DtHoraHasta2.Name = "DtHoraHasta2"
+        Me.DtHoraHasta2.Size = New System.Drawing.Size(112, 20)
+        Me.DtHoraHasta2.TabIndex = 563
+        '
+        'DtHoraDesde2
+        '
+        Me.DtHoraDesde2.CustomFormat = "HH:mm:ss"
+        Me.DtHoraDesde2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.DtHoraDesde2.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.DtHoraDesde2.Location = New System.Drawing.Point(466, 309)
+        Me.DtHoraDesde2.Name = "DtHoraDesde2"
+        Me.DtHoraDesde2.Size = New System.Drawing.Size(112, 20)
+        Me.DtHoraDesde2.TabIndex = 562
+        '
+        'DtHoraHasta4
+        '
+        Me.DtHoraHasta4.CustomFormat = "HH:mm:ss"
+        Me.DtHoraHasta4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.DtHoraHasta4.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.DtHoraHasta4.Location = New System.Drawing.Point(664, 356)
+        Me.DtHoraHasta4.Name = "DtHoraHasta4"
+        Me.DtHoraHasta4.Size = New System.Drawing.Size(112, 20)
+        Me.DtHoraHasta4.TabIndex = 567
+        '
+        'DtHoraDesde4
+        '
+        Me.DtHoraDesde4.CustomFormat = "HH:mm:ss"
+        Me.DtHoraDesde4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.DtHoraDesde4.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.DtHoraDesde4.Location = New System.Drawing.Point(466, 356)
+        Me.DtHoraDesde4.Name = "DtHoraDesde4"
+        Me.DtHoraDesde4.Size = New System.Drawing.Size(112, 20)
+        Me.DtHoraDesde4.TabIndex = 566
+        '
+        'DtHoraHasta3
+        '
+        Me.DtHoraHasta3.CustomFormat = "HH:mm:ss"
+        Me.DtHoraHasta3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.DtHoraHasta3.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.DtHoraHasta3.Location = New System.Drawing.Point(664, 333)
+        Me.DtHoraHasta3.Name = "DtHoraHasta3"
+        Me.DtHoraHasta3.Size = New System.Drawing.Size(112, 20)
+        Me.DtHoraHasta3.TabIndex = 565
+        '
+        'DtHoraDesde3
+        '
+        Me.DtHoraDesde3.CustomFormat = "HH:mm:ss"
+        Me.DtHoraDesde3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.DtHoraDesde3.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.DtHoraDesde3.Location = New System.Drawing.Point(466, 333)
+        Me.DtHoraDesde3.Name = "DtHoraDesde3"
+        Me.DtHoraDesde3.Size = New System.Drawing.Size(112, 20)
+        Me.DtHoraDesde3.TabIndex = 564
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(406, 309)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(46, 17)
+        Me.CheckBox1.TabIndex = 568
+        Me.CheckBox1.Text = "Mas"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'btnGenerar
+        '
+        Me.btnGenerar.Location = New System.Drawing.Point(831, 309)
+        Me.btnGenerar.Name = "btnGenerar"
+        Me.btnGenerar.Size = New System.Drawing.Size(75, 23)
+        Me.btnGenerar.TabIndex = 569
+        Me.btnGenerar.Text = "Reporte"
+        Me.btnGenerar.UseVisualStyleBackColor = True
+        '
         'IQ_C0015
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1071, 453)
+        Me.ClientSize = New System.Drawing.Size(1071, 503)
+        Me.Controls.Add(Me.btnGenerar)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.DtHoraHasta4)
+        Me.Controls.Add(Me.DtHoraDesde4)
+        Me.Controls.Add(Me.DtHoraHasta3)
+        Me.Controls.Add(Me.DtHoraDesde3)
+        Me.Controls.Add(Me.DtHoraHasta2)
+        Me.Controls.Add(Me.DtHoraDesde2)
         Me.Controls.Add(Me.CrvReporte)
         Me.Controls.Add(Me.ChkInterno)
         Me.Controls.Add(Me.RbAnual)
@@ -1135,6 +1249,7 @@ Partial Class IQ_C0015
         CType(Me.Panel_Estado3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
@@ -1221,5 +1336,15 @@ Partial Class IQ_C0015
     Friend WithEvents RbAnual As System.Windows.Forms.RadioButton
     Friend WithEvents ChkInterno As System.Windows.Forms.CheckBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents txtName As System.Windows.Forms.TextBox
+    Friend WithEvents DtHoraHasta2 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DtHoraDesde2 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DtHoraHasta4 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DtHoraDesde4 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DtHoraHasta3 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DtHoraDesde3 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents btnGenerar As System.Windows.Forms.Button
 End Class

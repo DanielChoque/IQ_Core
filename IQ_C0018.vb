@@ -601,4 +601,20 @@ Public Class IQ_C0018
         MessageBox.Show("Ticket asignado satisfactoriamente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
         CmdClean_Click(CmdNewSearch, e)
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        IQ_Core.IQ_C0027.Show()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'Dim Carga_Coneccion_O2 As New OleDb.OleDbConnection(Cnn_Central_Server)
+        'Carga_Coneccion_O2.Open()
+        'Dim Carga_Comando_O2 As New OleDb.OleDbCommand("SET IDENTITY_INSERT Iq_TipTram ON", Carga_Coneccion_O2)
+        'Dim Carga_Reader_O2 As OleDb.OleDbDataReader = Carga_Comando_O2.ExecuteReader(CommandBehavior.CloseConnection)
+        'Dim Carga_Comando_O2 As New OleDb.OleDbTransaction("SET IDENTITY_INSERT Iq_TipTram ON", Carga_Coneccion_O2, "")
+
+
+
+
+    End Sub
 End Class

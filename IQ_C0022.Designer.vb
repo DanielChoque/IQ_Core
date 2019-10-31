@@ -41,6 +41,8 @@ Partial Class IQ_C0022
         Me.RbDownload = New System.Windows.Forms.RadioButton()
         Me.RbUpload = New System.Windows.Forms.RadioButton()
         Me.PnlDownload = New System.Windows.Forms.Panel()
+        Me.Chk17 = New System.Windows.Forms.CheckBox()
+        Me.Chk16 = New System.Windows.Forms.CheckBox()
         Me.Chk15 = New System.Windows.Forms.CheckBox()
         Me.Chk14 = New System.Windows.Forms.CheckBox()
         Me.Chk13 = New System.Windows.Forms.CheckBox()
@@ -62,8 +64,6 @@ Partial Class IQ_C0022
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DtDesde = New System.Windows.Forms.DateTimePicker()
         Me.CrvReporte = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
-        Me.Chk16 = New System.Windows.Forms.CheckBox()
-        Me.Chk17 = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         CType(Me.Panel_Estado0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Panel_Estado1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -242,6 +242,30 @@ Partial Class IQ_C0022
         Me.PnlDownload.Name = "PnlDownload"
         Me.PnlDownload.Size = New System.Drawing.Size(405, 407)
         Me.PnlDownload.TabIndex = 54
+        '
+        'Chk17
+        '
+        Me.Chk17.AutoSize = True
+        Me.Chk17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.Chk17.ForeColor = System.Drawing.Color.Blue
+        Me.Chk17.Location = New System.Drawing.Point(12, 383)
+        Me.Chk17.Name = "Chk17"
+        Me.Chk17.Size = New System.Drawing.Size(133, 17)
+        Me.Chk17.TabIndex = 19
+        Me.Chk17.Text = "Cupos de Atenciòn"
+        Me.Chk17.UseVisualStyleBackColor = True
+        '
+        'Chk16
+        '
+        Me.Chk16.AutoSize = True
+        Me.Chk16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.Chk16.ForeColor = System.Drawing.Color.Blue
+        Me.Chk16.Location = New System.Drawing.Point(12, 360)
+        Me.Chk16.Name = "Chk16"
+        Me.Chk16.Size = New System.Drawing.Size(158, 17)
+        Me.Chk16.TabIndex = 18
+        Me.Chk16.Text = "Capacidad de Atenciòn"
+        Me.Chk16.UseVisualStyleBackColor = True
         '
         'Chk15
         '
@@ -488,30 +512,6 @@ Partial Class IQ_C0022
         Me.CrvReporte.Size = New System.Drawing.Size(1140, 530)
         Me.CrvReporte.TabIndex = 550
         Me.CrvReporte.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-        '
-        'Chk16
-        '
-        Me.Chk16.AutoSize = True
-        Me.Chk16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.Chk16.ForeColor = System.Drawing.Color.Blue
-        Me.Chk16.Location = New System.Drawing.Point(12, 360)
-        Me.Chk16.Name = "Chk16"
-        Me.Chk16.Size = New System.Drawing.Size(158, 17)
-        Me.Chk16.TabIndex = 18
-        Me.Chk16.Text = "Capacidad de Atenciòn"
-        Me.Chk16.UseVisualStyleBackColor = True
-        '
-        'Chk17
-        '
-        Me.Chk17.AutoSize = True
-        Me.Chk17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.Chk17.ForeColor = System.Drawing.Color.Blue
-        Me.Chk17.Location = New System.Drawing.Point(12, 383)
-        Me.Chk17.Name = "Chk17"
-        Me.Chk17.Size = New System.Drawing.Size(133, 17)
-        Me.Chk17.TabIndex = 19
-        Me.Chk17.Text = "Cupos de Atenciòn"
-        Me.Chk17.UseVisualStyleBackColor = True
         '
         'IQ_C0022
         '

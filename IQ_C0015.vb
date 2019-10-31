@@ -22,6 +22,7 @@ Public Class IQ_C0015
     Dim cod_elemAux As String
     Dim listaTT As New System.Windows.Forms.ListBox
     Dim listaEstados As New System.Windows.Forms.ListBox
+    Dim vectorHoras() As String = {"", "", "", "", "", "", "", "", "", ""}
 
     Private Sub CmdExit_Click(sender As Object, e As EventArgs) Handles CmdExit.Click
         IQ_C0000.PicFondo.Visible = True
@@ -29,6 +30,7 @@ Public Class IQ_C0015
     End Sub
     Public Sub New()
         InitializeComponent()
+        initHour()
         Timer1.Enabled = True
         Timer1.Start()
     End Sub
@@ -110,6 +112,7 @@ Public Class IQ_C0015
                     If Pos_Alcance > 0 Then
                         Dim tipo_Elem As String = Mid(Me.TrvOficinas.SelectedNode.Text, Pos_Alcance + 1, 1)
                         Dim cod_elem As String = Mid(Me.TrvOficinas.SelectedNode.Text, Pos_Alcance + 3, Len(Me.TrvOficinas.SelectedNode.Text) - (Pos_Alcance) + 2)
+                        cod_elemAux = ""
                         Select Case tipo_Elem
                             Case "O"
                                 alcance(0) = cod_elem
@@ -119,6 +122,7 @@ Public Class IQ_C0015
                                 alcance(0) = ""
                                 alcance(1) = "A:" & cod_elem
                                 alcance(2) = ""
+                                cod_elemAux = cod_elem
                             Case "K"
                                 alcance(0) = ""
                                 alcance(1) = "K:" & cod_elem
@@ -132,7 +136,7 @@ Public Class IQ_C0015
                                 alcance(1) = ""
                                 alcance(2) = cod_elem
                         End Select
-                        cod_elemAux = cod_elem
+
                     End If
                 End If
                 Dim indice_nodo As Integer
@@ -600,7 +604,7 @@ Public Class IQ_C0015
             Carga_Coneccion_O.Open()
             Codigo = alcance(2)
             If Num_rep = 33 Then
-                selform = "{IQ_Ausencias.IQAusencias_Punto} = '" + Codigo + "'"
+                selform = "{IQ_Ausencias.IQAusencias_Punto} = '" + Codigo + "' and {IQ_Ausencias.IQAusencias_Justificativo} <> '6c7afada99e4170ca0c400e54c1540bcd334578ff2ec993ef2aa3c771143384f'"
             Else
                 selform = "{IQ_Tickets.IQTicket_Punto} = '" + Codigo + "'"
             End If
@@ -716,8 +720,9 @@ Public Class IQ_C0015
         End If
         Dim rptlayout As New ReportDocument
             Try
-                If Num_rep = 17 Or Num_rep = 40 Then
-                    If Me.RbDiario.Checked = True Then
+
+            If Num_rep = 17 Or Num_rep = 40 Then
+                If Me.RbDiario.Checked = True Then
                     rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_D.rpt")
                     rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
                     rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Diario)"
@@ -752,7 +757,9 @@ Public Class IQ_C0015
                 rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & ".rpt")
                 rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
                 rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP
-                End If
+            End If
+
+
                 Me.CrvReporte.SelectionFormula = selform
                 Dim CrCollection As New CrystalDecisions.Shared.ParameterValues
                 Dim CrPvAlcance As New CrystalDecisions.Shared.ParameterDiscreteValue
@@ -766,42 +773,45 @@ Public Class IQ_C0015
             Dim CrPvInterno As New CrystalDecisions.Shared.ParameterDiscreteValue
                 CrPvAlcance.Value = alcance_reporte
                 CrCollection.Add(CrPvAlcance)
-                rptlayout.DataDefinition.ParameterFields("Alcance").ApplyCurrentValues(CrCollection)
+            rptlayout.DataDefinition.ParameterFields("Alcance").ApplyCurrentValues(CrCollection)
                 CrPvFD.Value = Me.DtFechaDesde.Value
                 CrCollection.Add(CrPvFD)
                 rptlayout.DataDefinition.ParameterFields("FechaDesde").ApplyCurrentValues(CrCollection)
                 CrPvFH.Value = Me.DtFechaHasta.Value
                 CrCollection.Add(CrPvFH)
                 rptlayout.DataDefinition.ParameterFields("FechaHasta").ApplyCurrentValues(CrCollection)
-                CrPvHD.Value = Format(Me.DtHoraDesde.Value, "HH:mm:ss")
+            CrPvHD.Value = Format(Me.DtHoraDesde.Value, "HH:mm:ss")
                 CrCollection.Add(CrPvHD)
                 rptlayout.DataDefinition.ParameterFields("HoraDesde").ApplyCurrentValues(CrCollection)
                 CrPvHH.Value = Format(Me.DtHoraHasta.Value, "HH:mm:ss")
                 CrCollection.Add(CrPvHH)
                 rptlayout.DataDefinition.ParameterFields("HoraHasta").ApplyCurrentValues(CrCollection)
-                If Trim(CmbTipoTick.Text) = "" Then
-                    CrPvTT.Value = "Todos"
-                Else
-                    CrPvTT.Value = CmbTipoTick.Text
-                End If
+
+            If Trim(CmbTipoTick.Text) = "" Then
+                CrPvTT.Value = "Todos"
+            Else
+                CrPvTT.Value = CmbTipoTick.Text
+            End If
                 CrCollection.Add(CrPvTT)
                 rptlayout.DataDefinition.ParameterFields("TipoTicket").ApplyCurrentValues(CrCollection)
-                If Trim(CmbEstados.Text) = "" Then
-                    CrPvST.Value = "Todos"
-                Else
-                    CrPvST.Value = CmbEstados.Text
-                End If
+
+            If Trim(CmbEstados.Text) = "" Then
+                CrPvST.Value = "Todos"
+            Else
+                CrPvST.Value = CmbEstados.Text
+            End If
                 CrCollection.Add(CrPvST)
                 rptlayout.DataDefinition.ParameterFields("Estado").ApplyCurrentValues(CrCollection)
-                If Me.RbDiario.Checked = True Then
-                    CrPvCorte.Value = "D"
-                ElseIf Me.RbSemanal.Checked = True Then
-                    CrPvCorte.Value = "S"
-                ElseIf Me.RbMensual.Checked = True Then
-                    CrPvCorte.Value = "M"
-                Else
-                    CrPvCorte.Value = "A"
-                End If
+
+            If Me.RbDiario.Checked = True Then
+                CrPvCorte.Value = "D"
+            ElseIf Me.RbSemanal.Checked = True Then
+                CrPvCorte.Value = "S"
+            ElseIf Me.RbMensual.Checked = True Then
+                CrPvCorte.Value = "M"
+            Else
+                CrPvCorte.Value = "A"
+            End If
                 CrCollection.Add(CrPvCorte)
             rptlayout.DataDefinition.ParameterFields("Corte").ApplyCurrentValues(CrCollection)
             If Num_rep = 18 Or Num_rep = 19 Or Num_rep = 20 Or Num_rep = 21 Or Num_rep = 31 Then
@@ -834,29 +844,22 @@ Public Class IQ_C0015
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim rpt As New ReportDocument
-        ' rpt.SetDataSource()
-        'SetParameterValue
-
-        rpt.Load(Disco_Appl & ":\I-Q\IQ_Rpt\Prueba.rpt")
-        rpt.SetParameterValue("R_ID", "" + alcance(2))
-        rpt.SetParameterValue("R_DateIni", Format(Me.DtFechaDesde.Value, "Short Date"))
-        rpt.SetParameterValue("R_DateEnd", Format(Me.DtFechaHasta.Value, "Short Date"))
-        rpt.SetParameterValue("R_Ticket", CodigoTT(Me.CmbTipoTick.Text))
-        rpt.SetDatabaseLogon("sa", "as")
-        'CrystalReportViewer1.ReportSource = rptFormat(Me.DtFechaDesde.Value, "yyyy,MM,dd") + ") "
-        'selform = selform & " And {IQ_Ausencias.IQAusencias_Fecha} <= Date (" + Format(Me.DtFechaHasta.Value, "yyyy,MM,dd")
-        Me.CrvReporte.ReportSource = rpt
-        Me.CrvReporte.DisplayToolbar = True
-        Me.CrvReporte.ShowCloseButton = False
-        'Me.CrvReporte.Zoom(1)
-        Me.CrvReporte.ShowFirstPage()
-        Me.CrvReporte.BringToFront()
-        Me.CrvReporte.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-        Me.CrvReporte.Visible = True
+         'MsgBox("0:" & alcance(0) & "\n1:" & alcance(1) & "\n2:" & alcance(2) & " \ncod:" & cod_elemAux)
+        If alcance(0) <> "" And alcance(0) <> "999999" Then
+            'MsgBox("alcance(0):" & alcance(0))
+            s("ReporteOficina", "" + alcance(0))
+        ElseIf alcance(1) <> "" Then
+            s("ReporteArea", "" + cod_elemAux)
+            'MsgBox(" AREa alcance(1):" & cod_elemAux)ReporteVentanilla
+        ElseIf alcance(2) <> "" Then
+            'MsgBox("Ventanilla alcance(2):" & alcance(2))
+            s("ReporteVentanilla", "" + alcance(2))
+        Else
+            MsgBox("Seleccione un área, oficina o ventanilla para poder emitir el reporte. ")
+        End If
     End Sub
 
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
+    Private Sub Label11_Click(sender As Object, e As EventArgs)
         MsgBox("0:" & alcance(0) & " 1:" & alcance(1) & " 2:" & alcance(2) & " cod:" & cod_elemAux)
         Dim cryRpt As New ReportDocument
         cryRpt.Load(Disco_Appl & ":\I-Q\IQ_Rpt\Prueba.rpt")
@@ -888,5 +891,382 @@ Public Class IQ_C0015
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub Label12_Click(sender As Object, e As EventArgs) Handles Label12.Click
+       
+    End Sub
+    Private Sub s(name As String, ID As String)
+        Dim rpt As New ReportDocument
+        rpt.Load(Disco_Appl & ":\I-Q\IQ_Rpt\" & name & ".rpt")
+        rpt.SetParameterValue("R_ID", "" + ID)
+        rpt.SetParameterValue("M_ID", "" + ID)
+        rpt.SetParameterValue("R_DateIni", Format(Me.DtFechaDesde.Value, "Short Date"))
+        rpt.SetParameterValue("R_DateEnd", Format(Me.DtFechaHasta.Value, "Short Date"))
+        rpt.SetParameterValue("MiParametro", "" + txtName.Text)
+        'rpt.SetDatabaseLogon("sa", "as")
+        rpt.SetDatabaseLogon(Server_User, Server_Pwd)
+        Me.CrvReporte.ReportSource = rpt
+        Me.CrvReporte.DisplayToolbar = True
+        Me.CrvReporte.ShowCloseButton = False
+        Me.CrvReporte.ShowFirstPage()
+        Me.CrvReporte.BringToFront()
+        Me.CrvReporte.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+        Me.CrvReporte.Visible = True
+    End Sub
+    Private Sub initHour()
+        DtHoraDesde2.Visible = False
+        DtHoraDesde3.Visible = False
+        DtHoraDesde4.Visible = False
+        DtHoraHasta2.Visible = False
+        DtHoraHasta3.Visible = False
+        DtHoraHasta4.Visible = False
+        btnGenerar.Visible = False
+        DtHoraDesde.Value = New DateTime(2019, 1, 1, 0, 0, 0)
+        DtHoraHasta.Value = New DateTime(2019, 1, 1, 23, 59, 59)
+    End Sub
+    Private Sub enableHour()
+        DtHoraDesde2.Visible = True
+        DtHoraDesde3.Visible = True
+        DtHoraDesde4.Visible = True
+        'Dim d As Date = Me.DateTimePicker1.Value
+        Dim newDate As Date = Date.Now.AddHours(2)
+        btnGenerar.Visible = True
+
+        DtHoraDesde.Value = New DateTime(2019, 1, 1, 7, 30, 0)
+        DtHoraDesde2.Value = New DateTime(2019, 1, 1, 8, 30, 0)
+        DtHoraDesde3.Value = New DateTime(2019, 1, 1, 12, 30, 0)
+        DtHoraDesde4.Value = New DateTime(2019, 1, 1, 14, 30, 0)
+
+        DtHoraHasta2.Visible = True
+        DtHoraHasta3.Visible = True
+        DtHoraHasta4.Visible = True
+
+        DtHoraHasta.Value = New DateTime(2019, 1, 1, 8, 29, 59)
+        DtHoraHasta2.Value = New DateTime(2019, 1, 1, 12, 29, 59)
+        DtHoraHasta3.Value = New DateTime(2019, 1, 1, 14, 29, 59)
+        DtHoraHasta4.Value = New DateTime(2019, 1, 1, 18, 30, 0)
+       
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If Me.CheckBox1.Checked Then
+            enableHour()
+        Else
+            initHour()
+        End If
+    End Sub
+    Private Sub repor(horaDesde As String, horaHasta As String, direct As String)
+        Dim Num_rep As Integer = 0
+        Dim NOM_REP As String = ""
+        For Each controlito In Panel2.Controls
+            If (TypeOf controlito Is RadioButton) Then
+                If controlito.checked = True Then
+                    Num_rep = CInt(Mid(controlito.name, 3, Len(controlito.name) - 2))
+                    NOM_REP = controlito.TEXT
+                    Exit For
+                End If
+            End If
+        Next controlito
+        If Num_rep = 0 Then
+            MessageBox.Show("Debe selecciona el reporte a emitir", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        Dim Codigo As String = ""
+        Dim selform As String = ""
+        Dim alcance_reporte As String = ""
+        If alcance(2) <> "" Then
+            alcance_reporte = "PUNTO DE ATENCION:"
+            Dim Carga_Coneccion_O As New OleDb.OleDbConnection(Cnn_Central_Server)
+            Carga_Coneccion_O.Open()
+            Codigo = alcance(2)
+            If Num_rep = 33 Then
+                selform = "{IQ_Ausencias.IQAusencias_Punto} = '" + Codigo + "'"
+            Else
+                selform = "{IQ_Tickets.IQTicket_Punto} = '" + Codigo + "'"
+            End If
+            Dim Carga_Comando_P As New OleDb.OleDbCommand("Select IqPuntos_Descripcion, IqPuntos_Area from IQ_PuntosAtencion where IqPuntos_Codigo = '" & Codigo & "'", Carga_Coneccion_O)
+            Dim Carga_Reader_P As OleDb.OleDbDataReader = Carga_Comando_P.ExecuteReader(CommandBehavior.CloseConnection)
+            While Carga_Reader_P.Read
+                If IsDBNull(Carga_Reader_P.GetValue(0)) = False Then
+                    alcance_reporte = alcance_reporte & " - " & Carga_Reader_P.GetValue(0)
+                    Codigo = Carga_Reader_P.GetValue(1)
+                End If
+            End While
+            Carga_Coneccion_O.Close()
+            Carga_Coneccion_O.Open()
+            Dim Carga_Comando_K As New OleDb.OleDbCommand("Select IqAreas_Descripcion, IqAreas_Oficina from IQ_Areas where IqAreas_Codigo = '" & Codigo & "'", Carga_Coneccion_O)
+            Dim Carga_Reader_K As OleDb.OleDbDataReader = Carga_Comando_K.ExecuteReader(CommandBehavior.CloseConnection)
+            While Carga_Reader_K.Read
+                If IsDBNull(Carga_Reader_K.GetValue(0)) = False Then
+                    alcance_reporte = alcance_reporte & " - " & Carga_Reader_K.GetValue(0)
+                    Codigo = Carga_Reader_K.GetValue(1)
+                End If
+            End While
+            Carga_Coneccion_O.Close()
+            Carga_Coneccion_O.Open()
+            Dim Carga_Comando_O As New OleDb.OleDbCommand("Select IqOficinas_Descripcion from IQ_Oficinas where IqOficinas_Codigo = '" & Codigo & "'", Carga_Coneccion_O)
+            Dim Carga_Reader_O As OleDb.OleDbDataReader = Carga_Comando_O.ExecuteReader(CommandBehavior.CloseConnection)
+            While Carga_Reader_O.Read
+                If IsDBNull(Carga_Reader_O.GetValue(0)) = False Then
+                    alcance_reporte = alcance_reporte & " - " & Carga_Reader_O.GetValue(0)
+                End If
+            End While
+            Carga_Coneccion_O.Dispose()
+        ElseIf Mid(alcance(1), 1, 1) = "A" Then
+            alcance_reporte = "AREA:"
+            Dim Carga_Coneccion_O As New OleDb.OleDbConnection(Cnn_Central_Server)
+            Codigo = Mid(alcance(1), 3, Len(alcance(1)) - 2)
+            If Num_rep = 33 Then
+                selform = "{IQ_Ausencias.IQAusencias_Area} = '" + Codigo + "'"
+            Else
+                selform = "{IQ_Tickets.IQTicket_Area} = '" + Codigo + "'"
+            End If
+            Carga_Coneccion_O.Open()
+            Dim Carga_Comando_K As New OleDb.OleDbCommand("Select IqAreas_Descripcion, IqAreas_Oficina from IQ_Areas where IqAreas_Codigo = '" & Codigo & "'", Carga_Coneccion_O)
+            Dim Carga_Reader_K As OleDb.OleDbDataReader = Carga_Comando_K.ExecuteReader(CommandBehavior.CloseConnection)
+            While Carga_Reader_K.Read
+                If IsDBNull(Carga_Reader_K.GetValue(0)) = False Then
+                    alcance_reporte = alcance_reporte & " - " & Carga_Reader_K.GetValue(0)
+                    Codigo = Carga_Reader_K.GetValue(1)
+                End If
+            End While
+            Carga_Coneccion_O.Close()
+            Carga_Coneccion_O.Open()
+            Dim Carga_Comando_O As New OleDb.OleDbCommand("Select IqOficinas_Descripcion from IQ_Oficinas where IqOficinas_Codigo = '" & Codigo & "'", Carga_Coneccion_O)
+            Dim Carga_Reader_O As OleDb.OleDbDataReader = Carga_Comando_O.ExecuteReader(CommandBehavior.CloseConnection)
+            While Carga_Reader_O.Read
+                If IsDBNull(Carga_Reader_O.GetValue(0)) = False Then
+                    alcance_reporte = alcance_reporte & " - " & Carga_Reader_O.GetValue(0)
+                End If
+            End While
+            Carga_Coneccion_O.Dispose()
+        ElseIf alcance(0) <> "999999" Then
+            alcance_reporte = "OFICINA: "
+            selform = "({IQ_Oficinas.IQoficinas_Codigo} = '" + alcance(0) + "' or {IQ_Oficinas.IQoficinas_Consolidacion} = '" + alcance(0) + "')"
+            Dim Carga_Coneccion_O As New OleDb.OleDbConnection(Cnn_Central_Server)
+            Carga_Coneccion_O.Open()
+            Dim Carga_Comando_O As New OleDb.OleDbCommand("Select IqOficinas_Descripcion from IQ_Oficinas where IqOficinas_Codigo = '" & alcance(0) & "'", Carga_Coneccion_O)
+            Dim Carga_Reader_O As OleDb.OleDbDataReader = Carga_Comando_O.ExecuteReader(CommandBehavior.CloseConnection)
+            While Carga_Reader_O.Read
+                If IsDBNull(Carga_Reader_O.GetValue(0)) = False Then
+                    alcance_reporte = alcance_reporte & Carga_Reader_O.GetValue(0)
+                End If
+            End While
+            Carga_Coneccion_O.Dispose()
+        Else
+            alcance_reporte = "GLOBAL"
+            selform = ""
+        End If
+        If selform <> "" Then
+            selform = selform & " And "
+        End If
+        If Num_rep = 33 Then
+            selform = selform & "{IQ_Ausencias.IQAusencias_Fecha} >= Date (" + Format(Me.DtFechaDesde.Value, "yyyy,MM,dd") + ") "
+            selform = selform & " And {IQ_Ausencias.IQAusencias_Fecha} <= Date (" + Format(Me.DtFechaHasta.Value, "yyyy,MM,dd") + ") "
+            selform = selform & " And timevalue({IQ_Ausencias.IQAusencias_Fecha}) >= time(" & horaDesde & ")"
+            selform = selform & " And timevalue({IQ_Ausencias.IQAusencias_Fecha}) <= time(" & horaHasta & ")"
+        Else
+            selform = selform & "{IQ_Tickets.IQTicket_Emision} >= Date (" + Format(Me.DtFechaDesde.Value, "yyyy,MM,dd") + ") "
+            selform = selform & " And {IQ_Tickets.IQTicket_Emision} <= Date (" + Format(Me.DtFechaHasta.Value, "yyyy,MM,dd") + ") "
+            If Trim(Me.CmbTipoTick.Text) <> "" Then
+                selform = selform & " And {IQ_Tickets.IQTicket_Tipo} = '" + CodigoTT(Me.CmbTipoTick.Text) + "'"
+            End If
+            If Trim(Me.CmbEstados.Text) <> "" Then
+                selform = selform & " And {IQ_Tickets.IQTicket_Estado} = '" + CodigoEstado(Me.CmbEstados.Text) + "'"
+            End If
+            selform = selform & " And timevalue({IQ_Tickets.IQTicket_Emision}) >= time(" & horaDesde & ")"
+            selform = selform & " And timevalue({IQ_Tickets.IQTicket_Emision}) <= time(" & horaHasta & ")"
+        End If
+        If Num_rep = 1 Or Num_rep = 2 Or Num_rep = 3 Or Num_rep = 4 Then
+            selform = selform & " And ({IQ_Tickets.IQTicket_Estado} = 'X' or {IQ_Tickets.IQTicket_Estado} = 'N' or {IQ_Tickets.IQTicket_Estado} = 'R')"
+        ElseIf Num_rep = 40 Then
+            selform = selform & " And ({IQ_Tickets.IQTicket_Estado} = 'X' or {IQ_Tickets.IQTicket_Estado} = 'R')"
+        ElseIf Num_rep = 14 Or Num_rep = 25 Or Num_rep = 37 Or Num_rep = 43 Or Num_rep = 44 Or Num_rep = 17 Or Num_rep = 13 Then
+            selform = selform & " And ({IQ_Tickets.IQTicket_Punto} <> '')"
+            ' ElseIf Num_rep = 31 Then
+            '    selform = selform & " And (isnull({@Exceso}) = FALSE AND {@Exceso} > 0)"
+            '       ElseIf Num_rep = 30 Or Num_rep = 31 Then
+            '           selform = selform & " And (isnull({IQ_Tickets.IQTicket_Atencion}) = false)"
+        ElseIf Num_rep = 18 Or Num_rep = 19 Or Num_rep = 20 Or Num_rep = 21 Then
+            If Me.ChkInterno.Checked = True Then
+                selform = selform & " And (isnull({IQ_Tickets.IQTicket_Asignacion}) = false)  And ({IQ_Tickets.IQTicket_Asignacion} > {IQ_Tickets.IQTicket_Maximo})"
+            Else
+                selform = selform & " And (isnull({IQ_Tickets.IQTicket_Asignacion}) = false)  And ({IQ_Tickets.IQTicket_Asignacion} > DateAdd ('n', 30, {IQ_Tickets.IQTicket_Emision}))"
+            End If
+        End If
+        Dim rptlayout As New ReportDocument
+        Try
+
+            If Num_rep = 17 Or Num_rep = 40 Then
+                If Me.RbDiario.Checked = True Then
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_D.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Diario)"
+                ElseIf Me.RbSemanal.Checked = True Then
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_S.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Semanal)"
+                Else
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_M.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Mensual)"
+                End If
+            ElseIf Num_rep = 13 Or Num_rep = 18 Or Num_rep = 19 Or Num_rep = 20 Or Num_rep = 21 Then
+                If Me.RbDiario.Checked = True Then
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_D.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Diario)"
+                ElseIf Me.RbSemanal.Checked = True Then
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_S.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Semanal)"
+                ElseIf Me.RbMensual.Checked = True Then
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_M.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Mensual)"
+                Else
+                    rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & "_A.rpt")
+                    rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                    rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP + Chr(10) + "(Anual)"
+                End If
+            Else
+                rptlayout.Load(Disco_Appl & ":\I-Q\IQ_Rpt\IQ_C0015_" & Trim(CStr(Num_rep)) & ".rpt")
+                rptlayout.SetDatabaseLogon(Server_User, Server_Pwd)
+                rptlayout.SummaryInfo.ReportTitle = Nombre_Cliente + Chr(10) + NOM_REP
+            End If
+
+
+            Me.CrvReporte.SelectionFormula = selform
+            Dim CrCollection As New CrystalDecisions.Shared.ParameterValues
+            Dim CrPvAlcance As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvFD As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvFH As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvHD As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvHH As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvTT As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvST As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvCorte As New CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim CrPvInterno As New CrystalDecisions.Shared.ParameterDiscreteValue
+            CrPvAlcance.Value = alcance_reporte
+            CrCollection.Add(CrPvAlcance)
+            rptlayout.DataDefinition.ParameterFields("Alcance").ApplyCurrentValues(CrCollection)
+            CrPvFD.Value = Me.DtFechaDesde.Value
+            CrCollection.Add(CrPvFD)
+            rptlayout.DataDefinition.ParameterFields("FechaDesde").ApplyCurrentValues(CrCollection)
+            CrPvFH.Value = Me.DtFechaHasta.Value
+            CrCollection.Add(CrPvFH)
+            rptlayout.DataDefinition.ParameterFields("FechaHasta").ApplyCurrentValues(CrCollection)
+            CrPvHD.Value = Replace(horaDesde, ",", ":")
+            'Format(Me.DtHoraDesde2.Value, "HH:mm:ss")
+            CrCollection.Add(CrPvHD)
+            rptlayout.DataDefinition.ParameterFields("HoraDesde").ApplyCurrentValues(CrCollection)
+            CrPvHH.Value = Replace(horaHasta, ",", ":")
+                'Format(Me.DtHoraHasta2.Value, "HH:mm:ss")
+            CrCollection.Add(CrPvHH)
+            rptlayout.DataDefinition.ParameterFields("HoraHasta").ApplyCurrentValues(CrCollection)
+
+            If Trim(CmbTipoTick.Text) = "" Then
+                CrPvTT.Value = "Todos"
+            Else
+                CrPvTT.Value = CmbTipoTick.Text
+            End If
+            CrCollection.Add(CrPvTT)
+            rptlayout.DataDefinition.ParameterFields("TipoTicket").ApplyCurrentValues(CrCollection)
+
+            If Trim(CmbEstados.Text) = "" Then
+                CrPvST.Value = "Todos"
+            Else
+                CrPvST.Value = CmbEstados.Text
+            End If
+            CrCollection.Add(CrPvST)
+            rptlayout.DataDefinition.ParameterFields("Estado").ApplyCurrentValues(CrCollection)
+
+            If Me.RbDiario.Checked = True Then
+                CrPvCorte.Value = "D"
+            ElseIf Me.RbSemanal.Checked = True Then
+                CrPvCorte.Value = "S"
+            ElseIf Me.RbMensual.Checked = True Then
+                CrPvCorte.Value = "M"
+            Else
+                CrPvCorte.Value = "A"
+            End If
+            CrCollection.Add(CrPvCorte)
+            rptlayout.DataDefinition.ParameterFields("Corte").ApplyCurrentValues(CrCollection)
+            If Num_rep = 18 Or Num_rep = 19 Or Num_rep = 20 Or Num_rep = 21 Or Num_rep = 31 Then
+                If Me.ChkInterno.Checked = True Then
+                    CrPvInterno.Value = "S"
+                Else
+                    CrPvInterno.Value = "N"
+                End If
+                CrCollection.Add(CrPvInterno)
+                rptlayout.DataDefinition.ParameterFields("Interno").ApplyCurrentValues(CrCollection)
+            End If
+            Me.CrvReporte.ReportSource = rptlayout
+            Me.CrvReporte.DisplayToolbar = True
+            Me.CrvReporte.ShowCloseButton = False
+            Me.CrvReporte.Zoom(1)
+            Me.CrvReporte.ShowFirstPage()
+            Me.CrvReporte.BringToFront()
+            Me.CrvReporte.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+            Me.CrvReporte.Visible = True
+            Me.CmdClean.Enabled = True
+            Me.CmdExit.Enabled = True
+            Me.CmdReport.Enabled = False
+        Catch exc As Exception
+            Dim Mensaje_Excepcion As String
+            Mensaje_Excepcion = exc.Message
+            Mensaje_Excepcion = "Error Integrado: " + Mensaje_Excepcion
+            MessageBox.Show(Mensaje_Excepcion, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
+            Exit Sub
+        End Try
+        Dim regDate As Date = Date.Now()
+        Dim strDate As String = regDate.ToString("ddMMMyyyy")
+        Dim todaysdate As String = String.Format("{0:dd/MM/yyyy}", DateTime.Now)
+        ' MsgBox(DateTime.Now.ToString("yyyy-MM-dd") + "_" + DateTime.Now.ToString("HH.mm.ss"))
+        'Dim direct As String
+
+        Try
+            Dim CrExportOptions As ExportOptions
+            Dim CrDiskFileDestinationOptions As New  _
+            DiskFileDestinationOptions()
+            Dim CrFormatTypeOptions As New PdfRtfWordFormatOptions()
+            CrDiskFileDestinationOptions.DiskFileName = _
+                                        "C:\IQ\" & direct & "\crystalExport" & Replace(horaDesde, ",", ".") & "_" & Replace(horaHasta, ",", ".") & ".pdf"
+            CrExportOptions = rptlayout.ExportOptions
+            With CrExportOptions
+                .ExportDestinationType = ExportDestinationType.DiskFile
+                .ExportFormatType = ExportFormatType.PortableDocFormat
+                .DestinationOptions = CrDiskFileDestinationOptions
+                .FormatOptions = CrFormatTypeOptions
+            End With
+            rptlayout.Export()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+        'repor("", "", "", "")
+        Dim direct As String
+        direct = DateTime.Now.ToString("yyyy-MM-dd") + "_" + DateTime.Now.ToString("HH.mm.ss")
+        MkDir("C:\IQ\" + direct)
+
+        vectorHoras(0) = Format(Me.DtHoraDesde.Value, "HH,mm,ss")
+        vectorHoras(1) = Format(Me.DtHoraHasta.Value, "HH,mm,ss")
+        vectorHoras(2) = Format(Me.DtHoraDesde2.Value, "HH,mm,ss")
+        vectorHoras(3) = Format(Me.DtHoraHasta2.Value, "HH,mm,ss")
+        vectorHoras(4) = Format(Me.DtHoraDesde3.Value, "HH,mm,ss")
+        vectorHoras(5) = Format(Me.DtHoraHasta3.Value, "HH,mm,ss")
+        vectorHoras(6) = Format(Me.DtHoraDesde4.Value, "HH,mm,ss")
+        vectorHoras(7) = Format(Me.DtHoraHasta4.Value, "HH,mm,ss")
+        vectorHoras(8) = Format(Me.DtHoraDesde.Value, "HH,mm,ss")
+        vectorHoras(9) = Format(Me.DtHoraHasta4.Value, "HH,mm,ss")
+        Dim cc As Integer = 0
+        For index As Integer = 0 To 4 'Step 2
+            repor("" & vectorHoras(cc), "" & vectorHoras(cc + 1), direct)
+            cc = cc + 2
+        Next
     End Sub
 End Class

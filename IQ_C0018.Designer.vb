@@ -25,6 +25,9 @@ Partial Class IQ_C0018
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IQ_C0018))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.CmdRefresh = New System.Windows.Forms.Button()
         Me.CmdExit = New System.Windows.Forms.Button()
         Me.CmdExec = New System.Windows.Forms.Button()
         Me.CmdClean = New System.Windows.Forms.Button()
@@ -45,7 +48,6 @@ Partial Class IQ_C0018
         Me.LblDestino = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TrvDestinos = New System.Windows.Forms.TreeView()
-        Me.CmdRefresh = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.Panel_Estado0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Panel_Estado1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,6 +57,8 @@ Partial Class IQ_C0018
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.Button2)
+        Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.CmdRefresh)
         Me.Panel1.Controls.Add(Me.CmdExit)
         Me.Panel1.Controls.Add(Me.CmdExec)
@@ -66,6 +70,34 @@ Partial Class IQ_C0018
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1169, 40)
         Me.Panel1.TabIndex = 2
+        '
+        'Button2
+        '
+        Me.Button2.Image = Global.IQ_Core.My.Resources.Resources.Modificar
+        Me.Button2.Location = New System.Drawing.Point(1117, 0)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(40, 40)
+        Me.Button2.TabIndex = 537
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
+        '
+        'Button1
+        '
+        Me.Button1.Image = Global.IQ_Core.My.Resources.Resources.Buscar
+        Me.Button1.Location = New System.Drawing.Point(1071, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(40, 40)
+        Me.Button1.TabIndex = 536
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'CmdRefresh
+        '
+        Me.CmdRefresh.Image = CType(resources.GetObject("CmdRefresh.Image"), System.Drawing.Image)
+        Me.CmdRefresh.Location = New System.Drawing.Point(564, 0)
+        Me.CmdRefresh.Name = "CmdRefresh"
+        Me.CmdRefresh.Size = New System.Drawing.Size(40, 40)
+        Me.CmdRefresh.TabIndex = 535
+        Me.CmdRefresh.UseVisualStyleBackColor = True
         '
         'CmdExit
         '
@@ -237,15 +269,6 @@ Partial Class IQ_C0018
         Me.TrvDestinos.Size = New System.Drawing.Size(311, 335)
         Me.TrvDestinos.TabIndex = 55
         '
-        'CmdRefresh
-        '
-        Me.CmdRefresh.Image = CType(resources.GetObject("CmdRefresh.Image"), System.Drawing.Image)
-        Me.CmdRefresh.Location = New System.Drawing.Point(564, 0)
-        Me.CmdRefresh.Name = "CmdRefresh"
-        Me.CmdRefresh.Size = New System.Drawing.Size(40, 40)
-        Me.CmdRefresh.TabIndex = 535
-        Me.CmdRefresh.UseVisualStyleBackColor = True
-        '
         'IQ_C0018
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -295,4 +318,6 @@ Partial Class IQ_C0018
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents TrvDestinos As System.Windows.Forms.TreeView
     Friend WithEvents CmdRefresh As System.Windows.Forms.Button
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class
