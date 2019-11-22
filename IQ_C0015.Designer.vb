@@ -307,7 +307,7 @@ Partial Class IQ_C0015
         Me.CrvReporte.Cursor = System.Windows.Forms.Cursors.Default
         Me.CrvReporte.Location = New System.Drawing.Point(15, 56)
         Me.CrvReporte.Name = "CrvReporte"
-        Me.CrvReporte.Size = New System.Drawing.Size(1041, 41)
+        Me.CrvReporte.Size = New System.Drawing.Size(1041, 419)
         Me.CrvReporte.TabIndex = 549
         '
         'Barra_Estado

@@ -1233,7 +1233,7 @@ Public Class IQ_C0015
             DiskFileDestinationOptions()
             Dim CrFormatTypeOptions As New PdfRtfWordFormatOptions()
             CrDiskFileDestinationOptions.DiskFileName = _
-                                        "C:\IQ\" & direct & "\crystalExport" & Replace(horaDesde, ",", ".") & "_" & Replace(horaHasta, ",", ".") & ".pdf"
+                                        Disco_Appl & ":\I-Q\Reporte\" & direct & "\crystalExport" & Replace(horaDesde, ",", ".") & "_" & Replace(horaHasta, ",", ".") & ".pdf"
             CrExportOptions = rptlayout.ExportOptions
             With CrExportOptions
                 .ExportDestinationType = ExportDestinationType.DiskFile
@@ -1251,7 +1251,7 @@ Public Class IQ_C0015
         'repor("", "", "", "")
         Dim direct As String
         direct = DateTime.Now.ToString("yyyy-MM-dd") + "_" + DateTime.Now.ToString("HH.mm.ss")
-        MkDir("C:\IQ\" + direct)
+        MkDir(Disco_Appl & ":\I-Q\Reporte\" + direct)
 
         vectorHoras(0) = Format(Me.DtHoraDesde.Value, "HH,mm,ss")
         vectorHoras(1) = Format(Me.DtHoraHasta.Value, "HH,mm,ss")
