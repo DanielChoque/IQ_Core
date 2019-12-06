@@ -604,7 +604,7 @@ Public Class IQ_C0015
             Carga_Coneccion_O.Open()
             Codigo = alcance(2)
             If Num_rep = 33 Then
-                selform = "{IQ_Ausencias.IQAusencias_Punto} = '" + Codigo + "' and {IQ_Ausencias.IQAusencias_Justificativo} <> '6c7afada99e4170ca0c400e54c1540bcd334578ff2ec993ef2aa3c771143384f'"
+                selform = "{IQ_Ausencias.IQAusencias_Punto} = '" + Codigo + "' and {IQ_Ausencias.IQAusencias_Justificativo} <> '6c7afada99e4170ca0c400e54c1540bcd334578ff2ec993ef2aa3c771143384f' "
             Else
                 selform = "{IQ_Tickets.IQTicket_Punto} = '" + Codigo + "'"
             End If
@@ -689,6 +689,7 @@ Public Class IQ_C0015
             selform = selform & " And {IQ_Ausencias.IQAusencias_Fecha} <= Date (" + Format(Me.DtFechaHasta.Value, "yyyy,MM,dd") + ") "
             selform = selform & " And timevalue({IQ_Ausencias.IQAusencias_Fecha}) >= time(" & Format(Me.DtHoraDesde.Value, "HH,mm,ss") & ")"
             selform = selform & " And timevalue({IQ_Ausencias.IQAusencias_Fecha}) <= time(" & Format(Me.DtHoraHasta.Value, "HH,mm,ss") & ")"
+            selform = selform & " And NOT ({IQ_Ausencias.IQAusencias_Justificativo}  LIKE '%6c7afada99e4170ca0c400e54c1540bcd334578ff2ec993ef2aa3c771143384f%')"
         Else
             selform = selform & "{IQ_Tickets.IQTicket_Emision} >= Date (" + Format(Me.DtFechaDesde.Value, "yyyy,MM,dd") + ") "
             selform = selform & " And {IQ_Tickets.IQTicket_Emision} <= Date (" + Format(Me.DtFechaHasta.Value, "yyyy,MM,dd") + ") "
